@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply min-h-screen bg-white font-sans text-agilite-slate antialiased transition-colors duration-200 dark:bg-gray-950 dark:text-gray-100;
+    background-image:
+      radial-gradient(at 85% -10%, rgba(227, 6, 19, 0.12), transparent 45%),
+      radial-gradient(at 15% 0%, rgba(79, 70, 229, 0.1), transparent 42%);
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image: radial-gradient(at 82% -20%, rgba(227, 6, 19, 0.2), transparent 45%);
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-agilite-grey-dark;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-agilite-red;
+  }
+}
+
+@layer components {
+  .container {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+}

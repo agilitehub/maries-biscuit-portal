@@ -6,7 +6,7 @@ alwaysApply: true
 
 # Your Persona
 
-- You are a master developer and user interface designer using JavaScript and ReactJS (Create React App).
+- You are a master developer and user interface designer using **TypeScript**, **React**, and Create React App.
 - When designing for the UI, you use Ant Design, TailwindCSS, and FontAwesome.
 - You only want to use TailwindCSS, and only resort to custom CSS when absolutely required.
 - You use FontAwesome for all icons, ignoring Ant Design's icon library.
@@ -26,7 +26,7 @@ alwaysApply: true
 
 # When designing components and writing logic
 
-- Write concise JavaScript **without** explanatory comments unless the logic is **hard to infer** from the code alone (edge cases, security constraints, non-standard algorithms).
+- Write concise TypeScript **without** explanatory comments unless the logic is **hard to infer** from the code alone (edge cases, security constraints, non-standard algorithms).
 - **Styling:** use **Tailwind** utilities wherever practical, including **arbitrary values** (e.g. `top-[37%]`) when needed. Avoid React **`style={{}}`** unless a value truly cannot be expressed in Tailwind.
 - Prefer **`src/index.css`** / **`src/App.css`** only for unavoidable global bases; otherwise stay in Tailwind.
 - Break large UIs into small components with a single responsibility.
@@ -34,7 +34,7 @@ alwaysApply: true
 
 # Overview of Project
 
-The purpose of this repository is **react-ai-boilerplate**: a starting point for **React apps built or extended with AI assistance**. It uses Create React App, **Tailwind CSS**, **React Router**, **`src/core`** versus **`src/modules`**, Cursor **skills** under `.cursor/skills`, and **`ThemeContext`** light/dark mode via `html.dark` and Tailwind `dark:` variants.
+The purpose of this repository is **react-ai-boilerplate**: a starting point for **React + TypeScript** apps built or extended with AI assistance. It uses Create React App (**`strict`** TypeScript where practical), **Tailwind CSS**, **React Router**, **`src/core`** versus **`src/modules`**, Cursor **skills** under `.cursor/skills`, and **`ThemeContext`** light/dark mode via `html.dark` and Tailwind `dark:` variants.
 
 Hold the line on the **directory structure** in the next section: **`core`** is generic shared UI only; **`modules`** own all feature/custom logic and per-feature folders.
 
@@ -65,7 +65,7 @@ Maintain the same scaffold under **`src/modules/<segment>/`**:
 | **`utils/`** | Pure helpers, parsers, segment-local constants. |
 | **`services/`** *(optional)* | HTTP/API wrappers specific to this module when justified. |
 
-The **route file** (`<segment>/<segment>.js`, e.g. `login/login.js`) stays at the module root, **default export** = page. Keep it **thin** and import from **`./components`**, **`./hooks`**, **`./utils`**, etc.
+The **route file** (`<segment>/<segment>.tsx`, e.g. `login/login.tsx`) stays at the module root, **default export** = page. Keep it **thin** and import from **`./components`**, **`./hooks`**, **`./utils`**, etc.
 
 For new modules, create **`components/`**, **`hooks/`**, and **`utils/`** immediately (e.g. with `.gitkeep`) so structure stays consistent.
 

@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import BackgroundEffect from '../../core/components/BackgroundEffect'
 
-const LoginPage = () => {
+export default function LoginPage(): React.ReactElement {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
   }
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
           </div>
 
           <div className='relative'>
-            <div className='absolute inset-0 animate-glow rounded-2xl opacity-75'></div>
+            <div className='animate-glow absolute inset-0 rounded-2xl opacity-75'></div>
 
             <div className='relative z-10 rounded-2xl border border-white/30 bg-white/95 p-8 shadow-xl shadow-agilite-red/5 backdrop-blur dark:border-gray-800/70 dark:bg-gray-900/90'>
               <form onSubmit={handleSubmit} className='space-y-5'>
@@ -83,7 +83,9 @@ const LoginPage = () => {
                 </button>
               </form>
 
-              <p className='mt-6 text-center text-sm text-gray-500 dark:text-gray-400'>Need help? Contact your administrator.</p>
+              <p className='mt-6 text-center text-sm text-gray-500 dark:text-gray-400'>
+                Need help? Contact your administrator.
+              </p>
             </div>
           </div>
         </div>
@@ -91,5 +93,3 @@ const LoginPage = () => {
     </div>
   )
 }
-
-export default LoginPage

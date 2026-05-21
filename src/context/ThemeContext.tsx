@@ -1,10 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState, type PropsWithChildren } from 'react'
 
-const ThemeContext = createContext()
+export type ThemeContextValue = {
+  darkMode: boolean
+  toggleDarkMode: () => void
+}
+
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
 
 const OVERRIDE_KEY = 'themeUserOverride'
 
-function readUserOverride() {
+function readUserOverride(): 'light' | 'dark' | null {
   try {
     const choice = localStorage.getItem(OVERRIDE_KEY)
     if (choice === 'light' || choice === 'dark') return choice
@@ -18,18 +23,18 @@ function readUserOverride() {
   return null
 }
 
-function systemPrefersDark() {
+function systemPrefersDark(): boolean {
   return window.matchMedia?.('(prefers-color-scheme: dark)')?.matches === true
 }
 
-function computeDarkMode() {
+function computeDarkMode(): boolean {
   const override = readUserOverride()
   if (override === 'dark') return true
   if (override === 'light') return false
   return systemPrefersDark()
 }
 
-export const ThemeProvider = ({ children }) => {
+export function ThemeProvider({ children }: PropsWithChildren): React.ReactElement {
   const [darkMode, setDarkMode] = useState(() => (typeof window === 'undefined' ? false : computeDarkMode()))
 
   useEffect(() => {
@@ -38,7 +43,7 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    const onSystemChange = () => {
+    const onSystemChange = (): void => {
       if (readUserOverride() == null) {
         setDarkMode(mq.matches)
       }
@@ -47,7 +52,7 @@ export const ThemeProvider = ({ children }) => {
     return () => mq.removeEventListener('change', onSystemChange)
   }, [])
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = (): void => {
     setDarkMode((prev) => {
       const next = !prev
       try {
@@ -60,12 +65,10 @@ export const ThemeProvider = ({ children }) => {
   return <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>{children}</ThemeContext.Provider>
 }
 
-export const useTheme = () => {
+export function useTheme(): ThemeContextValue {
   const context = useContext(ThemeContext)
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider')
   }
   return context
 }
-
-export default ThemeContext

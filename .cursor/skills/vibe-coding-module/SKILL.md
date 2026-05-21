@@ -1,8 +1,8 @@
 ---
 name: vibe-coding-module
 description: >-
-  React AI Boilerplate: strict src/core (generic layout + reusable core/components)
-  vs src/modules (feature components/hooks/utils); Tailwind and FontAwesome; ThemeContext.
+  React AI Boilerplate: TypeScript CRA, strict src/core vs modules, core/components,
+  Tailwind and FontAwesome; ThemeContext.
 ---
 
 # Vibe coding — modules, layout, and reusable components
@@ -11,35 +11,35 @@ Use this when creating or extending **route screens**, **feature UI**, or **shar
 
 ## Strict split: `core` vs `modules`
 
-| Location | What belongs here |
-| -------- | ----------------- |
-| **`src/core`** | **Generic** layout, **reusable** components (`core/components`), shared assets — **no** feature/domain logic, **no** module-only hooks or utils. |
-| **`src/modules/<segment>/`** | **Custom logic** for that route: **`components/`** (module-only UI), **`hooks/`**, **`utils/`**, route file. |
-| **`src/context/`** | **App-wide** providers (e.g. theme), not feature state. |
+| Location                     | What belongs here                                                                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`src/core`**               | **Generic** layout, **reusable** components (`core/components`), shared assets — **no** feature/domain logic, **no** module-only hooks or utils. |
+| **`src/modules/<segment>/`** | **Custom logic** for that route: **`components/`** (module-only UI), **`hooks/`**, **`utils/`**, route file.                                     |
+| **`src/context/`**           | **App-wide** providers (e.g. theme), not feature state.                                                                                          |
 
 **Promotion:** module code moves into **`src/core/components/`** (or **`core/layout/`**) only when a **second** consumer exists and it stays **generic**.
 
 ## Base directories
 
-| Area | Base directory |
-| ---- | -------------- |
-| **Route page (thin entry)** | `src/modules/<segment>/<segment>.js` |
-| **Module-only UI** | `src/modules/<segment>/components/` |
-| **Module-only hooks** | `src/modules/<segment>/hooks/` |
-| **Module-only utils** | `src/modules/<segment>/utils/` |
-| **Optional module API layer** | `src/modules/<segment>/services/` |
-| **Generic layout chrome** | `src/core/layout/` |
-| **Reusable components** (cross-module / shared widgets) | **`src/core/components/`** |
-| **Shared static files** | `src/core/assets/` |
-| **App-wide theme** | `src/context/ThemeContext.js` |
+| Area                                                    | Base directory                        |
+| ------------------------------------------------------- | ------------------------------------- |
+| **Route page (thin entry)**                             | `src/modules/<segment>/<segment>.tsx` |
+| **Module-only UI**                                      | `src/modules/<segment>/components/`   |
+| **Module-only hooks**                                   | `src/modules/<segment>/hooks/`        |
+| **Module-only utils**                                   | `src/modules/<segment>/utils/`        |
+| **Optional module API layer**                           | `src/modules/<segment>/services/`     |
+| **Generic layout chrome**                               | `src/core/layout/`                    |
+| **Reusable components** (cross-module / shared widgets) | **`src/core/components/`**            |
+| **Shared static files**                                 | `src/core/assets/`                    |
+| **App-wide theme**                                      | `src/context/ThemeContext.tsx`        |
 
-**Naming:** folder name matches the URL segment (`login` → `login/login.js`). **kebab-case** for multi-word segments.
+**Naming:** folder name matches the URL segment (`login` → `login/login.tsx`). **kebab-case** for multi-word segments.
 
 ## Every module uses the same skeleton
 
 Under **`src/modules/<segment>/`**:
 
-1. **`<segment>.js`** — default export = page; compose **`core/layout`**, **`core/components`**, and **`./components`**.
+1. **`<segment>.tsx`** — default export = page; compose **`core/layout`**, **`core/components`**, and **`./components`**.
 2. **`components/`** — UI **not** reused outside this module (yet).
 3. **`hooks/`** — `use*` tied to this module.
 4. **`utils/`** — pure helpers scoped to this module.
@@ -55,12 +55,12 @@ Under **`src/modules/<segment>/`**:
 All **reusable** React pieces live here (**Logo**, **ThemeToggle**, **BackgroundEffect**, future shared widgets). Do **not** put feature-specific UI in this folder.
 
 - **Icons:** **FontAwesome** — **do not** use **`@ant-design/icons`**.
-- **`ThemeToggle`** uses **`useTheme()`** from **`ThemeContext`**; **`ThemeProvider`** wraps the app in **`App.js`**.
+- **`ThemeToggle`** uses **`useTheme()`** from **`ThemeContext`**; **`ThemeProvider`** wraps the app in **`App.tsx`**.
 
 ## Logic placement
 
 - **Feature** state and effects → **module `hooks/`** (or thin route file until refactor).
-- **Generic** helpers: duplicate small helpers until **two modules** share them; then extract to **`src/core`** only if genuinely generic — often a **`utils.js`** sibling under **`core`** is acceptable later; favour **`core/components`** for UI reuse.
+- **Generic** helpers: duplicate small helpers until **two modules** share them; then extract to **`src/core`** only if genuinely generic — colocate **`utils.ts`** under **`core`** only when clearly cross-cutting; favour **`core/components`** for UI reuse.
 
 ## Ant Design (AntD)
 
@@ -78,16 +78,16 @@ Tailwind utilities everywhere practical; **`dark:`** with **`html.dark`**.
 
 ## CRA notes
 
-Entry **`src/index.js`**, root **`src/App.js`**. Prefer **relative imports** unless aliases are configured.
+Entry **`src/index.tsx`**, root **`src/App.tsx`**. Prefer **relative imports** unless aliases are configured.
 
 ## Quick reference
 
-| Task | Where |
-| ---- | ----- |
-| New route/feature | `src/modules/<segment>/` + **`components/`**, **`hooks/`**, **`utils/`** |
-| **Reusable** widget | **`src/core/components/`** |
-| Layout shell only | **`src/core/layout/`** |
-| Router | **`src/App.js`** |
-| Toolbar links | **vibe-coding-navigation** |
+| Task                | Where                                                                    |
+| ------------------- | ------------------------------------------------------------------------ |
+| New route/feature   | `src/modules/<segment>/` + **`components/`**, **`hooks/`**, **`utils/`** |
+| **Reusable** widget | **`src/core/components/`**                                               |
+| Layout shell only   | **`src/core/layout/`**                                                   |
+| Router              | **`src/App.tsx`**                                                        |
+| Toolbar links       | **vibe-coding-navigation**                                               |
 
 Mirror **`login`** and **`Navbar`** for import paths.

@@ -9,6 +9,10 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 config.autoAddCss = false
 
 const rootElement = document.getElementById('root')
+if (!rootElement) {
+  throw new Error('Root element #root not found')
+}
+
 const root = ReactDOM.createRoot(rootElement)
 
 root.render(

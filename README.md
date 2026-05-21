@@ -1,6 +1,6 @@
 # React AI Boilerplate
 
-Opinionated [Create React App](https://github.com/facebook/create-react-app) starter: Cursor **rules** and **skills** under `.cursor/`, a **strict** **`src/core`** (generic **`layout/`**, **`components/`** — reusable widgets only — and **`assets/`**) vs **`src/modules`** (all feature logic, each with **`components/`**, **`hooks/`**, **`utils/`**), **Tailwind CSS**, **FontAwesome**, **React Router**, **themes**, and **Prettier**.
+Opinionated [Create React App](https://github.com/facebook/create-react-app) + **TypeScript** starter (**`strict`** in **`tsconfig.json`**): Cursor **rules** and **skills** under `.cursor/`, a **strict** **`src/core`** (generic **`layout/`**, **`components/`** — reusable widgets only — and **`assets/`**) vs **`src/modules`** (all feature logic, each with **`components/`**, **`hooks/`**, **`utils/`**), **Tailwind CSS**, **FontAwesome**, **React Router**, **themes**, and **Prettier**.
 
 ## Prerequisites
 
@@ -13,7 +13,6 @@ Opinionated [Create React App](https://github.com/facebook/create-react-app) sta
 | ---------------------- | ------------------------------------ |
 | `npm start`            | Dev server (`http://localhost:3000`) |
 | `npm run build`        | Production bundle in `build/`        |
-| `npm test`             | Jest via CRA                         |
 | `npm run format`       | Prettier write                       |
 | `npm run format:check` | Prettier CI check                    |
 
@@ -22,11 +21,14 @@ Opinionated [Create React App](https://github.com/facebook/create-react-app) sta
 ```
 .cursor/rules/project-instructions.mdc   ← always-on agent guidance
 .cursor/skills                          ← vibe-coding skills (indexed in vibe-coding/SKILL.md)
-src/context/ThemeContext.js             ← ThemeProvider / useTheme, toggles html.dark
-src/core/layout/Navbar.js               ← toolbar (imports from core/components)
+tsconfig.json                          ← TS compiler options (`strict:true`)
+src/index.tsx                           ← SPA entry (`react-dom/createRoot`)
+src/react-app-env.d.ts                 ← `react-scripts` type refs + asset modules
+src/context/ThemeContext.tsx             ← ThemeProvider / useTheme, toggles html.dark
+src/core/layout/Navbar.tsx               ← toolbar (imports from core/components)
 src/core/components/                    ← Logo, ThemeToggle, BackgroundEffect (+ future reusable UI)
 src/core/assets/logo.svg               ← CRA default React emblem (`Logo` imports it via SVGR)
-src/modules/login/login.js             ← route entry (`/` and `/login`)
+src/modules/login/login.tsx             ← route entry (`/` and `/login`)
 src/modules/login/components/           ← login-only UI
 src/modules/login/hooks/
 src/modules/login/utils/
@@ -50,7 +52,7 @@ src/modules/login/utils/
 
 | Goal                           | Hint                                                                                    |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
-| Add an authenticated dashboard | Introduce `/app` routes, lift auth state/context, evolve `Navbar` into full app chrome   |
+| Add an authenticated dashboard | Introduce `/app` routes, lift auth state/context, evolve `Navbar` into full app chrome  |
 | Plug in assistants / MCP       | Keep API keys server-side only; hydrate UI from REST/WS endpoints or edge functions     |
 | Introduce Ant Design           | Allowed per Cursor rules — pair with Tailwind wrappers, still use FontAwesome for icons |
 

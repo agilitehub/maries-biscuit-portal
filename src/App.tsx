@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LoginPage from './modules/login/login'
 import { ThemeProvider } from './context/ThemeContext'
 
-function App() {
+function App(): React.ReactElement {
   return (
     <ThemeProvider>
       <Router>

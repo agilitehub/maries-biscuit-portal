@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Logo from '../../core/components/Logo'
 import Navbar from '../../core/layout/Navbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import BackgroundEffect from '../../core/components/BackgroundEffect'
+import { AUTH_BASE_PATH } from '../../routes'
+import { useAuth } from '../../context/AuthContext'
 
 export default function LoginPage(): React.ReactElement {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+  const { signIn } = useAuth()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+    signIn()
+    navigate(AUTH_BASE_PATH, { replace: true })
   }
 
   return (
@@ -24,6 +31,9 @@ export default function LoginPage(): React.ReactElement {
             <Logo sizePreset='hero' />
             <h1 className='mt-6 text-balance text-2xl font-bold text-gray-800 dark:text-white'>Welcome back</h1>
             <p className='mt-2 text-sm text-gray-600 dark:text-gray-400'>Sign in with your workspace credentials.</p>
+            <p className='mt-1 text-xs text-gray-500 dark:text-gray-500'>
+              Kitchen sink — leave fields blank or use anything; sign-in is a stub.
+            </p>
           </div>
 
           <div className='relative'>
@@ -47,7 +57,6 @@ export default function LoginPage(): React.ReactElement {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder='you@company.com'
-                      required
                       className='block w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-gray-900 shadow-sm outline-none placeholder:text-gray-400 focus:border-transparent focus:ring-2 focus:ring-agilite-red dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500'
                     />
                   </div>
@@ -69,7 +78,6 @@ export default function LoginPage(): React.ReactElement {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder='Password'
-                      required
                       className='block w-full rounded-lg border border-gray-300 bg-white py-3 pl-10 pr-4 text-gray-900 shadow-sm outline-none placeholder:text-gray-400 focus:border-transparent focus:ring-2 focus:ring-agilite-red dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500'
                     />
                   </div>

@@ -22,19 +22,31 @@ Opinionated [Create React App](https://github.com/facebook/create-react-app) + *
 .cursor/rules/project-instructions.mdc   ← always-on agent guidance
 .cursor/skills                          ← vibe-coding skills (indexed in vibe-coding/SKILL.md)
 tsconfig.json                          ← TS compiler options (`strict:true`)
-src/index.tsx                           ← SPA entry (`react-dom/createRoot`)
+src/index.tsx                           ← SPA entry (`antd/dist/reset.css`, Tailwind, FA)
 src/react-app-env.d.ts                 ← `react-scripts` type refs + asset modules
-src/context/ThemeContext.tsx             ← ThemeProvider / useTheme, toggles html.dark
-src/core/layout/Navbar.tsx               ← toolbar (imports from core/components)
-src/core/components/                    ← Logo, ThemeToggle, BackgroundEffect (+ future reusable UI)
-src/core/assets/logo.svg               ← CRA default React emblem (`Logo` imports it via SVGR)
-src/modules/login/login.tsx             ← route entry (`/` and `/login`)
-src/modules/login/components/           ← login-only UI
-src/modules/login/hooks/
-src/modules/login/utils/
+src/App.tsx                            ← Theme + Ant `ConfigProvider`, auth, `Routes` from registry
+src/context/ThemeContext.tsx           ← ThemeProvider / useTheme, toggles html.dark
+src/context/AuthContext.tsx            ← dummy in-memory `signIn` / `signOut`
+src/routes/authenticatedRoutes.tsx      ← **single source**: `/home` nav + child `<Route>` defs
+src/core/layout/Navbar.tsx             ← login toolbar only
+src/core/layout/AppShell.tsx           ← Ant `Layout` + `<Outlet />`, drawer
+src/core/layout/AppSidebar.tsx        ← collapsible `Sider` + `Menu` (FA icons)
+src/core/layout/ShellHeader.tsx        ← sidebar toggle, drawer opener, theme, user popover
+src/core/layout/UserMenuPopover.tsx   ← avatar, version from `package.json`, sign out
+src/core/layout/RequireAuth.tsx       ← guard (redirect to `/login`)
+src/core/layout/GuestRoute.tsx        ← redirect signed-in users to `/home`
+src/core/components/                   ← Logo, ThemeToggle, BackgroundEffect
+src/core/assets/logo.svg
+src/modules/login/login.tsx           ← `/` and `/login`
+src/modules/home/home.tsx             ← `/home`
+src/modules/samples/samples.tsx      ← `/home/samples`
 ```
 
+**Routing:** add a **page module** and **one row** in [`src/routes/authenticatedRoutes.tsx`](src/routes/authenticatedRoutes.tsx); paths and sidebar labels stay in sync automatically.
+
 **Boundaries:** **`core`** = shared chrome only: **`layout/`**, **`assets/`**, and **`components/`** for **reusable** UI (anything used by multiple modules). **`modules/*/components/`** = feature-only widgets. Hooks and utils stay in **modules**. See **`.cursor/rules/project-instructions.mdc`**.
+
+**Auth (boilerplate):** **In-memory only** — refresh clears the session. Swap `AuthContext` for real tokens/session when you fork.
 
 ## Theming
 
@@ -48,13 +60,18 @@ src/modules/login/utils/
 - Prettier rules live in `.prettierrc`. Run **`npm run format`** before pushes.
 - ESLint inherits CRA’s **`react-app`** preset.
 
+## Ant Design
+
+- **`ConfigProvider`** theme follows **`ThemeContext`** (`darkAlgorithm` vs default).
+- Prefer **FontAwesome** for icons in menus and chrome; use Ant for layout primitives (`Layout`, `Menu`, `Drawer`, `Popover`, etc.).
+
 ## Extending toward a real AI app
 
 | Goal                           | Hint                                                                                    |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
-| Add an authenticated dashboard | Introduce `/app` routes, lift auth state/context, evolve `Navbar` into full app chrome  |
+| Add an authenticated dashboard | Replace dummy **`AuthContext`**, wire APIs; keep shell under **`core/layout`**          |
 | Plug in assistants / MCP       | Keep API keys server-side only; hydrate UI from REST/WS endpoints or edge functions     |
-| Introduce Ant Design           | Allowed per Cursor rules — pair with Tailwind wrappers, still use FontAwesome for icons |
+| Extend Ant Design usage        | Tune tokens and pair with Tailwind; keep FontAwesome for chrome icons per project rules |
 
 ## Learn more
 

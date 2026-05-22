@@ -1,0 +1,29 @@
+:root {
+  --color-background: 255 255 255;
+  --color-surface: 255 255 255;
+  --color-surface-muted: 249 250 251;
+  --color-border: 229 231 235;
+  --color-border-input: 209 213 219;
+  --color-border-glass: rgb(255 255 255 / 0.3);
+  --color-foreground: 30 41 59;
+  --color-muted: 75 85 99;
+  --color-subtle: 107 114 128;
+  --color-placeholder: 156 163 175;
+  --color-ring-offset: 255 255 255;
+  --color-overlay-hover: rgb(0 0 0 / 0.06);
+}
+
+.dark {
+  --color-background: 3 7 18;
+  --color-surface: 17 24 39;
+  --color-surface-muted: 3 7 18;
+  --color-border: 31 41 55;
+  --color-border-input: 55 65 81;
+  --color-border-glass: rgb(31 41 55 / 0.7);
+  --color-foreground: 255 255 255;
+  --color-muted: 156 163 175;
+  --color-subtle: 156 163 175;
+  --color-placeholder: 107 114 128;
+  --color-ring-offset: 3 7 18;
+  --color-overlay-hover: rgb(255 255 255 / 0.08);
+}

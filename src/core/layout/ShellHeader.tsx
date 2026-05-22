@@ -18,12 +18,12 @@ export default function ShellHeader({
   onOpenDrawer
 }: ShellHeaderProps): React.ReactElement {
   return (
-    <header className='flex shrink-0 items-center justify-between gap-3 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-gray-800 dark:bg-gray-900/95'>
+    <header className='flex shrink-0 items-center justify-between gap-3 border-b border-border bg-surface/95 px-4 py-3 backdrop-blur'>
       <div className='flex min-w-0 flex-1 items-center gap-2'>
         <button
           type='button'
           aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          className='inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-gray-600 outline-none transition hover:bg-black/[0.06] focus-visible:ring-2 focus-visible:ring-agilite-red dark:text-gray-300 dark:hover:bg-white/[0.08]'
+          className='inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted outline-none transition hover:bg-overlay-hover focus-visible:ring-2 focus-visible:ring-agilite-red'
           onClick={onToggleSiderCollapse}
         >
           <FontAwesomeIcon icon={faBars} className='text-lg' aria-hidden />
@@ -36,7 +36,7 @@ export default function ShellHeader({
         <button
           type='button'
           aria-label='Open side panel'
-          className='inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-gray-600 outline-none transition hover:bg-black/[0.06] focus-visible:ring-2 focus-visible:ring-agilite-red dark:text-gray-300 dark:hover:bg-white/[0.08]'
+          className='inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted outline-none transition hover:bg-overlay-hover focus-visible:ring-2 focus-visible:ring-agilite-red'
           onClick={onOpenDrawer}
         >
           <FontAwesomeIcon icon={faBars} className='text-lg' aria-hidden />

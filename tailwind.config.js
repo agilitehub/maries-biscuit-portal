@@ -5,6 +5,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        'surface-muted': 'rgb(var(--color-surface-muted) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        'border-input': 'rgb(var(--color-border-input) / <alpha-value>)',
+        'border-glass': 'var(--color-border-glass)',
+        foreground: 'rgb(var(--color-foreground) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        subtle: 'rgb(var(--color-subtle) / <alpha-value>)',
+        placeholder: 'rgb(var(--color-placeholder) / <alpha-value>)',
+        'ring-offset': 'rgb(var(--color-ring-offset) / <alpha-value>)',
+        'overlay-hover': 'var(--color-overlay-hover)',
         primary: {
           light: '#FF3030',
           DEFAULT: '#E30613',

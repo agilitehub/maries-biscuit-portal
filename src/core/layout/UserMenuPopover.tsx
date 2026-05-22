@@ -26,7 +26,7 @@ export default function UserMenuPopover({ className = '' }: UserMenuPopoverProps
     <div className='min-w-[200px]' onClick={(e) => e.stopPropagation()}>
       <div className='mb-3'>
         <Typography.Text strong>{DEMO_USER_LABEL}</Typography.Text>
-        <div className='text-agilite-slate mt-1 text-xs dark:text-gray-400'>Kitchen-sink boilerplate</div>
+        <div className='mt-1 text-xs text-muted'>Kitchen-sink boilerplate</div>
       </div>
       <Typography.Text type='secondary' className='!text-xs'>
         Version {packageJson.version}
@@ -53,7 +53,7 @@ export default function UserMenuPopover({ className = '' }: UserMenuPopoverProps
       <button
         type='button'
         aria-label={`User menu (${DEMO_USER_LABEL})`}
-        className={`inline-flex cursor-pointer items-center gap-2 rounded-md px-1 py-0.5 text-sm font-medium text-gray-800 outline-none ring-offset-2 ring-offset-white transition hover:bg-black/[0.06] focus-visible:ring-2 focus-visible:ring-agilite-red dark:text-gray-100 dark:ring-offset-gray-950 dark:hover:bg-white/[0.08] ${className}`}
+        className={`inline-flex cursor-pointer items-center gap-2 rounded-md px-1 py-0.5 text-sm font-medium text-foreground outline-none ring-offset-2 ring-offset-ring-offset transition hover:bg-overlay-hover focus-visible:ring-2 focus-visible:ring-agilite-red ${className}`}
       >
         <Avatar
           size='small'

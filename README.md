@@ -26,6 +26,7 @@ src/index.tsx                           ← SPA entry (`antd/dist/reset.css`, Ta
 src/react-app-env.d.ts                 ← `react-scripts` type refs + asset modules
 src/App.tsx                            ← Theme + Ant `ConfigProvider`, auth, `Routes` from registry
 src/context/ThemeContext.tsx           ← ThemeProvider / useTheme, toggles html.dark
+src/core/theme/tokens.css              ← semantic light/dark CSS variables
 src/context/AuthContext.tsx            ← dummy in-memory `signIn` / `signOut`
 src/routes/authenticatedRoutes.tsx      ← **single source**: `/home` nav + child `<Route>` defs
 src/core/layout/Navbar.tsx             ← login toolbar only
@@ -52,7 +53,8 @@ src/modules/samples/samples.tsx      ← `/home/samples`
 
 - **No saved choice:** Follows the OS via `prefers-color-scheme` (auto). If the preference is not dark or is unavailable, the app stays **light**.
 - **After using the theme toggle:** Saves `themeUserOverride` as `light` or `dark`. Legacy `theme` in `localStorage` is read once and migrated. The app **listens for system changes** only while you have not set an override.
-- `ThemeToggle` toggles **`classList` on `<html>`** so Tailwind’s `darkMode: 'class'` utilities apply (`dark:bg-gray-950`, etc.).
+- `ThemeToggle` toggles **`classList` on `<html>`** so Tailwind’s `darkMode: 'class'` applies and CSS variables in **`src/core/theme/tokens.css`** switch to the dark palette.
+- **Semantic colors:** Define light/dark values once in **`src/core/theme/tokens.css`** (`--color-background`, `--color-foreground`, etc.) and consume them via Tailwind utilities such as **`bg-background`**, **`text-muted`**, **`border-border`** — avoid pairing raw grays with **`dark:`** for app chrome.
 - Adjust brand tokens primarily in **`tailwind.config.js`** (Agilit‑e palette is seeded by default).
 
 ## Formatting & lint

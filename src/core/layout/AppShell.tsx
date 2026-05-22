@@ -27,7 +27,7 @@ export default function AppShell({ sidebarNavItems }: AppShellProps): React.Reac
             onToggleSiderCollapse={() => setCollapsed((c) => !c)}
             onOpenDrawer={() => setDrawerOpen(true)}
           />
-          <Content className='bg-gray-50 dark:bg-gray-950'>
+          <Content className='bg-surface-muted'>
             <Outlet />
           </Content>
         </Layout>
@@ -40,7 +40,7 @@ export default function AppShell({ sidebarNavItems }: AppShellProps): React.Reac
         open={drawerOpen}
         destroyOnHidden
       >
-        <p className='text-gray-600 dark:text-gray-400'>
+        <p className='text-muted'>
           Boilerplate Ant Design drawer. Put filters, quick actions, or auxiliary context here in a real app.
         </p>
       </Drawer>

@@ -30,7 +30,7 @@ export default function Logo({
     <div className={`flex items-center gap-3 sm:gap-3.5 ${className}`}>
       <ReactLogoGraphic className={`shrink-0 ${resolvedSizes}`} aria-hidden focusable={false} />
       {showTitle && (
-        <span className='text-left font-semibold tracking-tight text-agilite-slate dark:text-white sm:text-lg'>
+        <span className='text-left font-semibold tracking-tight text-foreground sm:text-lg'>
           {title}
         </span>
       )}

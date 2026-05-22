@@ -1,10 +1,12 @@
+@import './core/theme/tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply min-h-screen bg-white font-sans text-agilite-slate antialiased transition-colors duration-200 dark:bg-gray-950 dark:text-gray-100;
+    @apply min-h-screen bg-background font-sans text-foreground antialiased transition-colors duration-200;
     background-image:
       radial-gradient(at 85% -10%, rgba(227, 6, 19, 0.12), transparent 45%),
       radial-gradient(at 15% 0%, rgba(79, 70, 229, 0.1), transparent 42%);

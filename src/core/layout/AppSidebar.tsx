@@ -44,9 +44,7 @@ export default function AppSidebar({ items, collapsed, onCollapse }: AppSidebarP
       breakpoint='lg'
       trigger={null}
       theme={uiTheme}
-      className={
-        darkMode ? 'border-r border-gray-800 bg-gray-950 shadow-sm' : 'border-r border-gray-200 bg-white shadow-sm'
-      }
+      className='border-r border-border bg-background shadow-sm'
       width={228}
     >
       <Menu

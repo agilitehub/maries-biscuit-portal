@@ -32,6 +32,7 @@ Use this when creating or extending **route screens**, **feature UI**, or **shar
 | **Reusable components** (cross-module / shared widgets) | **`src/core/components/`**            |
 | **Shared static files**                                 | `src/core/assets/`                    |
 | **App-wide theme**                                      | `src/context/ThemeContext.tsx`        |
+| **Semantic light/dark colors**                          | `src/core/theme/tokens.css`           |
 
 **Naming:** folder name matches the URL segment (`login` → `login/login.tsx`). **kebab-case** for multi-word segments.
 
@@ -74,7 +75,7 @@ Compose with Tailwind wrappers; icons stay **FontAwesome**.
 
 ## Tailwind and dark mode
 
-Tailwind utilities everywhere practical; **`dark:`** with **`html.dark`**.
+Prefer **semantic theme tokens** from **`src/core/theme/tokens.css`** (`bg-background`, `text-muted`, `border-border`, etc.) over raw **`gray-*` + `dark:`** pairs. Use **`dark:`** only when behaviour differs between modes (e.g. show/hide decorative layers), not for standard chrome colors. **`html.dark`** is toggled by **`ThemeContext`**.
 
 ## CRA notes
 

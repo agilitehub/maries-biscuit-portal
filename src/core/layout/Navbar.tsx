@@ -17,7 +17,7 @@ export default function Navbar(): React.ReactElement {
             navigate('/')
           }}
         >
-          <Logo showTitle title='React AI Boilerplate' sizePreset='toolbar' />
+          <Logo showTitle title="Marie's Biscuit Portal" sizePreset='toolbar' />
         </button>
         <ThemeToggle />
       </nav>

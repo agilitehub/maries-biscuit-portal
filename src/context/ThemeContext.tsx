@@ -23,15 +23,10 @@ function readUserOverride(): 'light' | 'dark' | null {
   return null
 }
 
-function systemPrefersDark(): boolean {
-  return window.matchMedia?.('(prefers-color-scheme: dark)')?.matches === true
-}
-
 function computeDarkMode(): boolean {
   const override = readUserOverride()
   if (override === 'dark') return true
-  if (override === 'light') return false
-  return systemPrefersDark()
+  return false
 }
 
 export function ThemeProvider({ children }: PropsWithChildren): React.ReactElement {
@@ -40,17 +35,6 @@ export function ThemeProvider({ children }: PropsWithChildren): React.ReactEleme
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode)
   }, [darkMode])
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    const onSystemChange = (): void => {
-      if (readUserOverride() == null) {
-        setDarkMode(mq.matches)
-      }
-    }
-    mq.addEventListener('change', onSystemChange)
-    return () => mq.removeEventListener('change', onSystemChange)
-  }, [])
 
   const toggleDarkMode = (): void => {
     setDarkMode((prev) => {

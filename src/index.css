@@ -5,16 +5,13 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply min-h-screen bg-background font-sans text-foreground antialiased transition-colors duration-200;
-    background-image:
-      radial-gradient(at 85% -10%, rgba(227, 6, 19, 0.12), transparent 45%),
-      radial-gradient(at 15% 0%, rgba(79, 70, 229, 0.1), transparent 42%);
-    background-attachment: fixed;
+  html {
+    @apply min-h-full bg-transparent;
   }
 
-  .dark body {
-    background-image: radial-gradient(at 82% -20%, rgba(227, 6, 19, 0.2), transparent 45%);
+  body,
+  #root {
+    @apply min-h-screen bg-transparent font-sans text-foreground antialiased transition-colors duration-200;
   }
 
   ::-webkit-scrollbar {
@@ -22,16 +19,20 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-agilite-grey-dark;
+    @apply rounded-full bg-marie-gold-light;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-agilite-red;
+    @apply bg-marie-gold;
   }
 }
 
 @layer components {
   .container {
     @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .botanical-card {
+    @apply border border-marie-gold-light/50 bg-white/65 backdrop-blur-sm dark:border-botanical-gold/20 dark:bg-surface/75;
   }
 }

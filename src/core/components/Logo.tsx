@@ -1,9 +1,8 @@
 import React from 'react'
-import { ReactComponent as ReactLogoGraphic } from '../assets/logo.svg'
 
 export const logoMarkSizes = {
-  toolbar: 'h-14 w-14',
-  hero: 'h-32 w-32 sm:h-24 sm:h-24'
+  toolbar: 'h-14 w-auto sm:h-16',
+  hero: 'h-36 w-auto sm:h-44'
 } as const
 
 export type LogoSizePreset = keyof typeof logoMarkSizes
@@ -21,16 +20,20 @@ export default function Logo({
   sizePreset,
   sizeClasses,
   showTitle = false,
-  title = 'React AI Boilerplate'
+  title = "Marie's Biscuits"
 }: LogoProps): React.ReactElement {
   const resolvedSizes =
     sizeClasses ?? (sizePreset != null ? logoMarkSizes[sizePreset] : undefined) ?? logoMarkSizes.toolbar
 
   return (
-    <div className={`flex items-center gap-3 sm:gap-3.5 ${className}`}>
-      <ReactLogoGraphic className={`shrink-0 ${resolvedSizes}`} aria-hidden focusable={false} />
+    <div className={`flex items-center gap-3 ${className}`}>
+      <img
+        src='/assets/pricelist/logo.png'
+        alt="Marie's Biscuits"
+        className={`block shrink-0 object-contain dark:brightness-0 dark:invert ${resolvedSizes}`}
+      />
       {showTitle && (
-        <span className='text-left font-semibold tracking-tight text-foreground sm:text-lg'>
+        <span className='font-heading text-left text-lg font-semibold tracking-tight text-foreground sm:text-xl'>
           {title}
         </span>
       )}

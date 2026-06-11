@@ -30,7 +30,9 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps): React
       type='button'
       onClick={toggleDarkMode}
       className={`relative flex h-8 w-16 items-center rounded-full border p-1 shadow-md transition-colors duration-300 ${
-        darkMode ? 'justify-end border-agilite-red/50 bg-gray-800' : 'justify-start border-transparent bg-agilite-red'
+        darkMode
+          ? 'justify-end border-botanical-gold/50 bg-botanical-teal'
+          : 'justify-start border-[#4d8268]/60 bg-gradient-to-r from-[#5a9478] to-[#8ec0a8]'
       } ${className}`}
       aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
@@ -40,7 +42,7 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps): React
         <div
           className={`absolute inset-0 transition-transform duration-500 ease-in-out ${darkMode ? 'translate-x-0' : 'translate-x-full'}`}
         >
-          <div className='absolute inset-0 bg-gradient-to-r from-gray-900 to-agilite-black'>
+          <div className='absolute inset-0 bg-gradient-to-r from-botanical-teal to-botanical-plum'>
             <div
               className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-100' : 'opacity-0'}`}
             >
@@ -54,27 +56,27 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps): React
         <div
           className={`absolute inset-0 transition-transform duration-500 ease-in-out ${darkMode ? 'translate-x-full' : 'translate-x-0'}`}
         >
-          <div className='absolute inset-0 bg-gradient-to-r from-agilite-red/20 to-red-100'></div>
-          <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-0' : 'opacity-30'}`}>
-            <div className='absolute left-2 top-1 h-2 w-4 rounded-full bg-white'></div>
-            <div className='absolute right-3 top-3 h-1.5 w-3 rounded-full bg-white'></div>
+          <div className='absolute inset-0 bg-gradient-to-r from-[#528a6e] via-[#6fa089] to-[#9cc4b0]' />
+          <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-0' : 'opacity-55'}`}>
+            <div className='absolute left-2 top-1 h-2 w-4 rounded-full bg-white/75' />
+            <div className='absolute right-3 top-3 h-1.5 w-3 rounded-full bg-white/65' />
           </div>
         </div>
       </div>
 
       <div
         className={`relative z-10 flex h-6 w-6 items-center justify-center rounded-full shadow-md transition-all duration-300 ${
-          darkMode ? 'bg-agilite-red' : 'bg-white'
+          darkMode ? 'bg-marie-gold' : 'border border-[#4d8268]/45 bg-white shadow-sm'
         }`}
       >
         <FontAwesomeIcon
           icon={faSun}
-          className={`absolute text-sm text-agilite-red transition-opacity duration-300 ${darkMode ? 'opacity-0' : 'opacity-100'}`}
+          className={`absolute text-sm text-marie-green-forest transition-opacity duration-300 ${darkMode ? 'opacity-0' : 'opacity-100'}`}
           aria-hidden
         />
         <FontAwesomeIcon
           icon={faMoon}
-          className={`absolute text-sm text-white transition-opacity duration-300 ${darkMode ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute text-sm text-marie-green-deep transition-opacity duration-300 ${darkMode ? 'opacity-100' : 'opacity-0'}`}
           aria-hidden
         />
       </div>

@@ -1,12 +1,17 @@
 import React from 'react'
 
+import AboutSection from './components/AboutSection'
+import ContactSection from './components/ContactSection'
+import FeaturedBiscuitsSection from './components/FeaturedBiscuitsSection'
+import HeroSection from './components/HeroSection'
+
 export default function HomePage(): React.ReactElement {
   return (
-    <div className='p-6'>
-      <h1 className='text-2xl font-semibold text-foreground'>Home</h1>
-      <p className='mt-2 max-w-2xl text-muted'>
-        Kitchen-sink boilerplate dashboard. Replace this module with your real landing experience after sign-in.
-      </p>
-    </div>
+    <>
+      <HeroSection />
+      <FeaturedBiscuitsSection />
+      <AboutSection />
+      <ContactSection />
+    </>
   )
 }

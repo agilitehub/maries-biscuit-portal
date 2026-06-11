@@ -1,0 +1,190 @@
+.booklet-page {
+  background-color: #faf8f4;
+}
+
+.booklet-frame {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: 1px solid #b8956a;
+  outline: 1px solid #b8956a;
+  outline-offset: 4px;
+  min-height: calc(297mm - 28mm);
+  padding: 14mm 16mm;
+}
+
+.booklet-section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #2f4538;
+  letter-spacing: 0.02em;
+}
+
+.booklet-section-subtitle {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a7a4e;
+}
+
+.booklet-rule {
+  height: 1px;
+  margin: 0.75rem 0 1rem;
+  background: linear-gradient(to right, transparent, #b8956a 15%, #b8956a 85%, transparent);
+}
+
+.booklet-price-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.booklet-price-label {
+  flex-shrink: 0;
+  color: #2f4538;
+}
+
+.booklet-price-dots {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted #d4bc94;
+  transform: translateY(-0.15em);
+}
+
+.booklet-price-amount {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: #9a7a4e;
+}
+
+.booklet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.booklet-table thead th {
+  background-color: #2f4538;
+  color: #faf8f4;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.45rem 0.55rem;
+  text-align: left;
+}
+
+.booklet-table thead th:not(:first-child) {
+  text-align: right;
+}
+
+.booklet-table tbody td {
+  border-top: 1px solid #e8e0d4;
+  color: #2f4538;
+  padding: 0.38rem 0.55rem;
+}
+
+.booklet-table tbody td:not(:first-child) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.booklet-table tbody tr:nth-child(even) td {
+  background-color: #f3efe8;
+}
+
+.booklet-table tbody td:last-child {
+  color: #9a7a4e;
+  font-weight: 600;
+}
+
+.booklet-ribbon {
+  margin-top: auto;
+  background-color: #2f4538;
+  color: #faf8f4;
+  padding: 0.65rem 1rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.booklet-ribbon a {
+  color: #d4bc94;
+}
+
+.booklet-feature {
+  border-left: 3px solid #b8956a;
+  background-color: #f3efe8;
+  padding: 0.85rem 1rem;
+}
+
+.booklet-badge {
+  display: inline-block;
+  border: 1px solid #b8956a;
+  color: #9a7a4e;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.1rem 0.45rem;
+  text-transform: uppercase;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: white !important;
+    background-image: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body.pricelist-printing * {
+    visibility: hidden;
+  }
+
+  body.pricelist-printing #pricelist-booklet,
+  body.pricelist-printing #pricelist-booklet * {
+    visibility: visible;
+  }
+
+  body.pricelist-printing #pricelist-booklet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  body.pricelist-printing .no-print {
+    display: none !important;
+  }
+
+  .booklet-page {
+    page-break-after: always;
+    break-after: page;
+    min-height: 297mm;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 10mm !important;
+  }
+
+  .booklet-page-last {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .booklet-frame {
+    min-height: calc(297mm - 20mm);
+    outline-offset: 3px;
+    padding: 12mm 14mm;
+  }
+}

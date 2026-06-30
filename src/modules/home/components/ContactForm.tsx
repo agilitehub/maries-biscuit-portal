@@ -2,12 +2,33 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 
+import { sendContactMessage } from '../services/contactApi'
+
 export default function ContactForm(): React.ReactElement {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
-    setSubmitted(true)
+    setError(null)
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const name = String(formData.get('name') ?? '').trim()
+    const email = String(formData.get('email') ?? '').trim()
+    const message = String(formData.get('message') ?? '').trim()
+
+    setSubmitting(true)
+
+    try {
+      await sendContactMessage({ name, email, message })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -23,6 +44,15 @@ export default function ContactForm(): React.ReactElement {
 
   return (
     <form onSubmit={handleSubmit} className='space-y-5'>
+      {error ? (
+        <div
+          role='alert'
+          className='rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-200'
+        >
+          {error}
+        </div>
+      ) : null}
+
       <div>
         <label htmlFor='name' className='block text-sm font-medium text-foreground'>
           Your name
@@ -40,7 +70,8 @@ export default function ContactForm(): React.ReactElement {
             required
             autoComplete='name'
             placeholder='Jane Smith'
-            className='block w-full rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold'
+            disabled={submitting}
+            className='block w-full rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold disabled:opacity-60'
           />
         </div>
       </div>
@@ -62,7 +93,8 @@ export default function ContactForm(): React.ReactElement {
             required
             autoComplete='email'
             placeholder='you@example.com'
-            className='block w-full rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold'
+            disabled={submitting}
+            className='block w-full rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold disabled:opacity-60'
           />
         </div>
       </div>
@@ -83,16 +115,18 @@ export default function ContactForm(): React.ReactElement {
             required
             rows={5}
             placeholder='Tell us what you&apos;d like to order, or ask a question…'
-            className='block w-full resize-y rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold'
+            disabled={submitting}
+            className='block w-full resize-y rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold disabled:opacity-60'
           />
         </div>
       </div>
 
       <button
         type='submit'
-        className='w-full rounded-lg bg-marie-green-deep px-4 py-3 text-sm font-semibold text-marie-cream transition hover:bg-marie-green-forest focus-visible:outline focus-visible:ring-2 focus-visible:ring-marie-gold focus-visible:ring-offset-2 sm:w-auto sm:px-8'
+        disabled={submitting}
+        className='w-full rounded-lg bg-marie-green-deep px-4 py-3 text-sm font-semibold text-marie-cream transition hover:bg-marie-green-forest focus-visible:outline focus-visible:ring-2 focus-visible:ring-marie-gold focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-8'
       >
-        Send message
+        {submitting ? 'Sending…' : 'Send message'}
       </button>
     </form>
   )

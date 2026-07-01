@@ -47,6 +47,19 @@ function segmentToPath(segment: string): string {
   return segment === '' ? '/' : `/${segment}`
 }
 
+export function isSiteNavItemActive(item: SiteNavItem, pathname: string, hash: string): boolean {
+  const hashIndex = item.path.indexOf('#')
+  if (hashIndex !== -1) {
+    return pathname === '/' && hash === item.path.slice(hashIndex)
+  }
+
+  if (item.path === '/') {
+    return pathname === '/' && hash === ''
+  }
+
+  return pathname === item.path
+}
+
 export function getSiteNavItems(): SiteNavItem[] {
   return [
     ...pageRouteDefs.map((def) => ({

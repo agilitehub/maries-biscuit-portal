@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from '../../context/ThemeContext'
@@ -26,13 +27,13 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps): React
   const { darkMode, toggleDarkMode } = useTheme()
 
   return (
-    <button
-      type='button'
+    <Button
+      type='text'
       onClick={toggleDarkMode}
-      className={`relative flex h-8 w-16 items-center rounded-full border p-1 shadow-md transition-colors duration-300 ${
+      className={`relative !flex !h-8 !w-16 !min-w-16 !items-center !rounded-full !border !p-1 !shadow-md !transition-colors !duration-300 ${
         darkMode
-          ? 'justify-end border-botanical-gold/50 bg-botanical-teal'
-          : 'justify-start border-[#4d8268]/60 bg-gradient-to-r from-[#5a9478] to-[#8ec0a8]'
+          ? '!justify-end !border-botanical-gold/50 !bg-botanical-teal [&.ant-btn-text:not(:disabled):hover]:!bg-botanical-teal'
+          : '!justify-start !border-[#4d8268]/60 !bg-gradient-to-r !from-[#5a9478] !to-[#8ec0a8] [&.ant-btn-text:not(:disabled):hover]:!bg-gradient-to-r [&.ant-btn-text:not(:disabled):hover]:!from-[#5a9478] [&.ant-btn-text:not(:disabled):hover]:!to-[#8ec0a8]'
       } ${className}`}
       aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
@@ -80,6 +81,6 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps): React
           aria-hidden
         />
       </div>
-    </button>
+    </Button>
   )
 }

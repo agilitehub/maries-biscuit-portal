@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 
@@ -19,14 +20,14 @@ export default function PriceListToolbar({ onExportPdf }: PriceListToolbarProps)
       </Link>
 
       <div className='flex flex-col gap-2 sm:items-end'>
-        <button
-          type='button'
+        <Button
+          type='primary'
           onClick={onExportPdf}
-          className='inline-flex items-center justify-center gap-2 rounded-md bg-marie-green-deep px-6 py-2.5 text-sm font-semibold text-marie-cream transition hover:bg-marie-green-forest focus-visible:outline focus-visible:ring-2 focus-visible:ring-marie-gold focus-visible:ring-offset-2'
+          icon={<FontAwesomeIcon icon={faFilePdf} aria-hidden />}
+          className='!inline-flex !h-auto !items-center !justify-center !gap-2 !rounded-md !border-0 !bg-marie-green-deep !px-6 !py-2.5 !text-sm !font-semibold !text-marie-cream !shadow-none hover:!bg-marie-green-forest focus-visible:!outline focus-visible:!ring-2 focus-visible:!ring-marie-gold focus-visible:!ring-offset-2'
         >
-          <FontAwesomeIcon icon={faFilePdf} aria-hidden />
           Save as PDF
-        </button>
+        </Button>
         <p className='text-xs text-subtle'>Opens print — choose &ldquo;Save as PDF&rdquo;</p>
       </div>
     </div>

@@ -1,28 +1,56 @@
 import React, { useState } from 'react'
+import { Alert, Button, Form, Input } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { sendContactMessage } from '../services/contactApi'
 
+type ContactFormValues = {
+  name: string
+  email: string
+  message: string
+}
+
+const inputAffixClassNames = {
+  affixWrapper:
+    '!rounded-lg !border !border-border-input !bg-surface !py-2.5 !shadow-none hover:!border-border-input focus-within:!border-transparent focus-within:!ring-2 focus-within:!ring-marie-gold disabled:!opacity-60',
+  input: '!bg-surface !text-foreground placeholder:!text-placeholder'
+}
+
+const textAreaClassName =
+  '!resize-y !rounded-lg !border-border-input !bg-surface !py-3 !pl-10 !pr-4 !text-foreground placeholder:!text-placeholder focus:!border-transparent focus:!ring-2 focus:!ring-marie-gold disabled:!opacity-60'
+
+const IconTextArea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.ComponentProps<typeof Input.TextArea>
+>((props, ref) => (
+  <div className='relative'>
+    <FontAwesomeIcon
+      icon={faComment}
+      className='pointer-events-none absolute left-3 top-4 z-10 text-placeholder'
+      aria-hidden
+    />
+    <Input.TextArea {...props} ref={ref} className={`${textAreaClassName} ${props.className ?? ''}`} />
+  </div>
+))
+IconTextArea.displayName = 'IconTextArea'
+
 export default function ContactForm(): React.ReactElement {
+  const [form] = Form.useForm<ContactFormValues>()
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault()
+  const onFinish = async (values: ContactFormValues): Promise<void> => {
     setError(null)
-
-    const form = e.currentTarget
-    const formData = new FormData(form)
-    const name = String(formData.get('name') ?? '').trim()
-    const email = String(formData.get('email') ?? '').trim()
-    const message = String(formData.get('message') ?? '').trim()
-
     setSubmitting(true)
 
     try {
-      await sendContactMessage({ name, email, message })
+      await sendContactMessage({
+        name: values.name.trim(),
+        email: values.email.trim(),
+        message: values.message.trim()
+      })
       setSubmitted(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
@@ -43,91 +71,62 @@ export default function ContactForm(): React.ReactElement {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='space-y-5'>
+    <Form
+      form={form}
+      layout='vertical'
+      requiredMark={false}
+      onFinish={onFinish}
+      className='[&_.ant-form-item]:!mb-5 [&_.ant-form-item-label>label]:!h-auto [&_.ant-form-item-label>label]:!text-sm [&_.ant-form-item-label>label]:!font-medium [&_.ant-form-item-label>label]:!text-foreground [&_.ant-form-item-label]:!pb-1.5'
+    >
       {error ? (
-        <div
+        <Alert
+          type='error'
+          message={error}
+          showIcon={false}
           role='alert'
-          className='rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-200'
-        >
-          {error}
-        </div>
+          className='!mb-5 !rounded-lg !border !border-red-300 !bg-red-50 !px-4 !py-3 dark:!border-red-800 dark:!bg-red-950/40 [&_.ant-alert-message]:!text-sm [&_.ant-alert-message]:!text-red-800 dark:[&_.ant-alert-message]:!text-red-200'
+        />
       ) : null}
 
-      <div>
-        <label htmlFor='name' className='block text-sm font-medium text-foreground'>
-          Your name
-        </label>
-        <div className='relative mt-1.5'>
-          <FontAwesomeIcon
-            icon={faUser}
-            className='pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-placeholder'
-            aria-hidden
-          />
-          <input
-            id='name'
-            name='name'
-            type='text'
-            required
-            autoComplete='name'
-            placeholder='Jane Smith'
-            disabled={submitting}
-            className='block w-full rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold disabled:opacity-60'
-          />
-        </div>
-      </div>
+      <Form.Item label='Your name' name='name' rules={[{ required: true, message: 'Please enter your name' }]}>
+        <Input
+          prefix={<FontAwesomeIcon icon={faUser} className='text-placeholder' aria-hidden />}
+          autoComplete='name'
+          placeholder='Jane Smith'
+          disabled={submitting}
+          classNames={inputAffixClassNames}
+        />
+      </Form.Item>
 
-      <div>
-        <label htmlFor='email' className='block text-sm font-medium text-foreground'>
-          Email address
-        </label>
-        <div className='relative mt-1.5'>
-          <FontAwesomeIcon
-            icon={faEnvelope}
-            className='pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-placeholder'
-            aria-hidden
-          />
-          <input
-            id='email'
-            name='email'
-            type='email'
-            required
-            autoComplete='email'
-            placeholder='you@example.com'
-            disabled={submitting}
-            className='block w-full rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold disabled:opacity-60'
-          />
-        </div>
-      </div>
+      <Form.Item
+        label='Email address'
+        name='email'
+        rules={[
+          { required: true, message: 'Please enter your email' },
+          { type: 'email', message: 'Please enter a valid email' }
+        ]}
+      >
+        <Input
+          prefix={<FontAwesomeIcon icon={faEnvelope} className='text-placeholder' aria-hidden />}
+          type='email'
+          autoComplete='email'
+          placeholder='you@example.com'
+          disabled={submitting}
+          classNames={inputAffixClassNames}
+        />
+      </Form.Item>
 
-      <div>
-        <label htmlFor='message' className='block text-sm font-medium text-foreground'>
-          Message
-        </label>
-        <div className='relative mt-1.5'>
-          <FontAwesomeIcon
-            icon={faComment}
-            className='pointer-events-none absolute left-3 top-4 text-placeholder'
-            aria-hidden
-          />
-          <textarea
-            id='message'
-            name='message'
-            required
-            rows={5}
-            placeholder='Tell us what you&apos;d like to order, or ask a question…'
-            disabled={submitting}
-            className='block w-full resize-y rounded-lg border border-border-input bg-surface py-3 pl-10 pr-4 text-foreground outline-none placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-marie-gold disabled:opacity-60'
-          />
-        </div>
-      </div>
+      <Form.Item label='Message' name='message' rules={[{ required: true, message: 'Please enter a message' }]}>
+        <IconTextArea rows={5} placeholder="Tell us what you'd like to order, or ask a question…" disabled={submitting} />
+      </Form.Item>
 
-      <button
-        type='submit'
+      <Button
+        htmlType='submit'
         disabled={submitting}
-        className='w-full rounded-lg bg-marie-green-deep px-4 py-3 text-sm font-semibold text-marie-cream transition hover:bg-marie-green-forest focus-visible:outline focus-visible:ring-2 focus-visible:ring-marie-gold focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-8'
+        className='!h-auto !w-full !rounded-lg !border-0 !bg-marie-green-deep !px-4 !py-3 !text-sm !font-semibold !text-marie-cream !shadow-none hover:!bg-marie-green-forest focus-visible:!outline focus-visible:!ring-2 focus-visible:!ring-marie-gold focus-visible:!ring-offset-2 disabled:!cursor-not-allowed disabled:!opacity-60 sm:!w-auto sm:!px-8'
       >
         {submitting ? 'Sending…' : 'Send message'}
-      </button>
-    </form>
+      </Button>
+    </Form>
   )
 }

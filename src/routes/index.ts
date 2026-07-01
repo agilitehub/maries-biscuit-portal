@@ -1,1 +1,1 @@
-export { getSiteNavItems, siteChildRoutes, type SiteNavItem } from './siteRoutes'
+export { getSiteNavItems, isSiteNavItemActive, siteChildRoutes, type SiteNavItem } from './siteRoutes'

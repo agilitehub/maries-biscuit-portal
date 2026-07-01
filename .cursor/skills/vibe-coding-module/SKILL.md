@@ -2,7 +2,7 @@
 name: vibe-coding-module
 description: >-
   React AI Boilerplate: TypeScript CRA, strict src/core vs modules, core/components,
-  Tailwind and FontAwesome; ThemeContext.
+  Ant Design, Tailwind, FontAwesome; ThemeContext.
 ---
 
 # Vibe coding — modules, layout, and reusable components
@@ -65,12 +65,29 @@ All **reusable** React pieces live here (**Logo**, **ThemeToggle**, **Background
 
 ## Ant Design (AntD)
 
-Compose with Tailwind wrappers; icons stay **FontAwesome**.
+**Required** for user-facing interactive UI. Import from `'antd'`:
+
+```tsx
+import { Button, Form, Input } from 'antd'
+```
+
+| Use Ant Design for | Use Tailwind for |
+| ------------------ | ---------------- |
+| `Button`, `Input`, `Input.TextArea`, `Form`, `Select`, `Modal`, `Card`, `Table`, `Spin`, `Alert` | Page layout, grids, spacing, responsive breakpoints |
+| Form validation via Ant `Form` rules | Brand colours, decorative/marketing styling on wrappers |
+| Loading/disabled states via Ant props | Semantic tokens from **`tokens.css`** (`bg-background`, `text-muted`, etc.) |
+
+**Rules:**
+
+- Do **not** use raw `<button>`, `<input>`, `<textarea>`, or `<select>` for user-facing UI.
+- Compose Ant components inside Tailwind wrappers (`className` on a wrapping `div` or on the Ant component itself).
+- Icons: **FontAwesome only** — never **`@ant-design/icons`**.
+- **`ConfigProvider`** in **`App.tsx`** handles Ant light/dark; keep it in sync with **`ThemeContext`**.
 
 ## Code style: comments and styling
 
 - Add **comments only** when the logic is **non-obvious** (security, rare edge cases, subtle invariants). Otherwise prefer clear naming and structure over comments.
-- Prefer **Tailwind only**; use **arbitrary values** (`top-[7%]`, `shadow-[…]`) when scale tokens are not enough. Avoid **`style={{}}`** unless a value truly cannot be expressed in Tailwind.
+- Use **Tailwind** for layout and visual polish; use **arbitrary values** (`top-[7%]`, `shadow-[…]`) when scale tokens are not enough. Avoid **`style={{}}`** unless a value truly cannot be expressed in Tailwind.
 - Reserve **`index.css`** / **`App.css`** for minimal global base styles.
 
 ## Tailwind and dark mode

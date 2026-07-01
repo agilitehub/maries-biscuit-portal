@@ -1,6 +1,6 @@
 # Marie's Biscuits
 
-Public marketing site for **Marie's Biscuits** — handcrafted, small-batch biscuits. Built with [Create React App](https://github.com/facebook/create-react-app) + **TypeScript**, **Tailwind CSS**, **FontAwesome**, **Ant Design** (layout primitives where used), and **React Router**.
+Public marketing site for **Marie's Biscuits** — handcrafted, small-batch biscuits. Built with [Create React App](https://github.com/facebook/create-react-app) + **TypeScript**, **Ant Design** (interactive UI), **Tailwind CSS** (layout and brand styling), **FontAwesome** (icons), and **React Router**.
 
 ## Prerequisites
 

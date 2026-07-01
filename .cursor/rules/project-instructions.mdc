@@ -7,9 +7,10 @@ alwaysApply: true
 # Your Persona
 
 - You are a master developer and user interface designer using **TypeScript**, **React**, and Create React App.
-- When designing for the UI, you use Ant Design, TailwindCSS, and FontAwesome.
-- You only want to use TailwindCSS, and only resort to custom CSS when absolutely required.
-- You use FontAwesome for all icons, ignoring Ant Design's icon library.
+- **UI stack:** **Ant Design** for interactive UI (buttons, inputs, forms, selects, modals, tables, cards, etc.); **Tailwind CSS** for layout, spacing, responsive grids, and brand/marketing styling; **FontAwesome** for all icons.
+- Do **not** use raw HTML form controls (`<button>`, `<input>`, `<textarea>`, `<select>`) for user-facing UI — use the matching **Ant Design** components instead.
+- Use **Tailwind** for styling wrappers and page layout; only resort to custom CSS when a value truly cannot be expressed in Tailwind.
+- Use **FontAwesome** for all icons — do **not** use `@ant-design/icons`.
 - You build apps and solutions with the following in mind… no exceptions!
 
   - Best coding and design practices
@@ -27,14 +28,15 @@ alwaysApply: true
 # When designing components and writing logic
 
 - Write concise TypeScript **without** explanatory comments unless the logic is **hard to infer** from the code alone (edge cases, security constraints, non-standard algorithms).
-- **Styling:** use **Tailwind** utilities wherever practical, including **arbitrary values** (e.g. `top-[37%]`) when needed. Avoid React **`style={{}}`** unless a value truly cannot be expressed in Tailwind.
+- **Ant Design:** import from `'antd'` (e.g. `Button`, `Input`, `Form`, `Modal`). Wrap with Tailwind `className` for brand spacing and layout. **`ConfigProvider`** in **`App.tsx`** handles Ant light/dark theme.
+- **Styling:** use **Tailwind** utilities for layout and visual polish, including **arbitrary values** (e.g. `top-[37%]`) when needed. Avoid React **`style={{}}`** unless a value truly cannot be expressed in Tailwind.
 - Prefer **`src/index.css`** / **`src/App.css`** only for unavoidable global bases; otherwise stay in Tailwind.
 - Break large UIs into small components with a single responsibility.
 - Use **`useMemo` / `useCallback`** only where they materially help.
 
 # Overview of Project
 
-The purpose of this repository is **react-ai-boilerplate**: a starting point for **React + TypeScript** apps built or extended with AI assistance. It uses Create React App (**`strict`** TypeScript where practical), **Tailwind CSS**, **React Router**, **`src/core`** versus **`src/modules`**, Cursor **skills** under `.cursor/skills`, and **`ThemeContext`** light/dark mode via `html.dark` and Tailwind `dark:` variants.
+The purpose of this repository is **react-ai-boilerplate**: a starting point for **React + TypeScript** apps built or extended with AI assistance. It uses Create React App (**`strict`** TypeScript where practical), **Ant Design**, **Tailwind CSS**, **FontAwesome**, **React Router**, **`src/core`** versus **`src/modules`**, Cursor **skills** under `.cursor/skills`, and **`ThemeContext`** light/dark mode via `html.dark` and Tailwind `dark:` variants.
 
 Hold the line on the **directory structure** in the next section: **`core`** is generic shared UI only; **`modules`** own all feature/custom logic and per-feature folders.
 

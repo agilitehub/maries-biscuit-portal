@@ -96,6 +96,22 @@ export const specialtyFlavours: SpecialtyItem[] = [
       { label: '1kg', price: 130 },
       { label: '2kg', price: 250 }
     ]
+  },
+  {
+    name: 'Oreo Sandwich Biscuits',
+    badge: 'New',
+    tiers: [
+      { label: '500g', price: 80 },
+      { label: '1kg', price: 150 }
+    ]
+  },
+  {
+    name: 'Chocolate-Dipped Oreo Sandwich Biscuits',
+    badge: 'New',
+    tiers: [
+      { label: '500g', price: 95 },
+      { label: '1kg', price: 180 }
+    ]
   }
 ]
 
